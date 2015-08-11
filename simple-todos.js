@@ -1,13 +1,11 @@
+Tasks = new Mongo.Collection("tasks");
+
 if (Meteor.isClient) {
   // counter starts at 0
   Template.body.helpers({
-    tasks: [
-      { text: "This is task 1",
-        completed: 'false'
-      },
-      { text: "This is task 2" },
-      { text: "This is task 3" }
-    ]
+    tasks: function() {
+      return Tasks.find({});
+    }
   })
 }
 
@@ -16,3 +14,20 @@ if (Meteor.isServer) {
     // code to run on server at startup
   });
 }
+
+// how to insert tasks from meteor mongo
+//
+// db.tasks.insert([
+//   {
+//     text: 'Hello world!',
+//     createdAt: new Date()
+//   },
+//   {
+//     text: 'G$D',
+//     createdAt: new Date()
+//   },
+//   {
+//     text: 'Eat Gud Fud',
+//     createdAt: new Date()
+//   }
+// ]);
