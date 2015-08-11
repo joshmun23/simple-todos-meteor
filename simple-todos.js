@@ -4,7 +4,7 @@ if (Meteor.isClient) {
   // counter starts at 0
   Template.body.helpers({
     tasks: function() {
-      return Tasks.find({});
+      return Tasks.find({}, {sort: {createdAt: -1}});
     }
   })
 
@@ -22,6 +22,15 @@ if (Meteor.isClient) {
       });
 
       event.target.text.value = '';
+    },
+    "click .toggle-checked": function () {
+      //Set the checked property to the opposite of its current value
+      Tasks.update(this._id, {
+        $set: {checked: ! this.checked}
+      });
+    },
+    "click .delete": function () {
+      Tasks.remove(this._id);
     }
   });
 }
